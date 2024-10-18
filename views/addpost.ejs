@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Event Form</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+
+<body>
+    <div class="background">
+        <div class="form-container">
+            <div class="form-image">
+                <img src="/img/pexels-christian-israel-palacios-resendiz-228508197-28598594.jpg" alt="Event Image">
+            </div>
+            <div class="form-content">
+                <form id="eventForm" action="/events/create" method="POST" enctype="multipart/form-data">
+                    <h2>Create Event</h2>
+
+                    <div class="form-group">
+                        <label for="image">Event Image</label>
+                        <input type="file" id="image" name="image" accept="image/*" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="title">Event Title</label>
+                        <input type="text" id="title" name="title" placeholder="Enter event title" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Event Description</label>
+                        <textarea id="description" name="description" rows="4" placeholder="Enter event description"
+                            required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="place">Event Place</label>
+                        <input type="text" id="place" name="place" placeholder="Enter event place" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Ticket Price</label>
+                        <input type="number" id="price" name="price" placeholder="Enter the price" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category">Event Category:</label>
+                        <select id="category" name="category" class="form-control" required>
+                            <option value="" disabled selected>Select a category</option>
+                            <option value="Corporate">Corporate</option>
+                            <option value="Virtual">Virtual</option>
+                            <option value="Social">Social</option>
+                            <option value="Entertainment">Entertainment</option>
+                            <option value="Sports">Sports</option>
+                            <option value="Education">Education</option>
+
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date">Event Date</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+       document.querySelector('#eventForm').addEventListener('submit', async function (e) {
+    e.preventDefault(); // Prevent default form submission
+
+    const formData = new FormData(this);
+
+    try {
+        const response = await fetch('/events/create', {
+            method: 'POST',
+            body: formData,
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Event Created!',
+                text: result.message,
+                confirmButtonText: 'OK'
+            }).then(() => {
+                window.location.href = result.redirectUrl; // Redirect based on role
+            });
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: result.message
+            });
+        }
+    } catch (error) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Server Error',
+            text: 'Something went wrong.'
+        });
+    }
+});
+
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

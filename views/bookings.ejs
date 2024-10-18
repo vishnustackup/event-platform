@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard-bookings</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+   
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-3 sidebar">
+                <h2>Dashboard</h2>
+                <a href="/auth/userDashboard">My Profile</a>
+                <a href="#bookings">Bookings</a>
+                <a href="/auth/myposts/<%= userId._id %>" class="active">My Posts</a>
+                <a href="/book-event/<%= userId %>" class="active">Booked Event</a>
+                <a href="/home">Home</a>
+            </nav>
+            <main class="content col-md-9 ">
+                <h2>Post Bookings</h2>
+                <div class="row">
+                        <% events.forEach(event=> { %>
+                            <% if (event.bookingsCount> 0) { %>
+                            <div class="col-4 ">
+                                <div class="card" style="width: 20rem;">
+                                    <img src="<%= event.image %>" class="card-img-top" alt="Event Image">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <%= event.title %>
+                                        </h5>
+                                        <p class="card-text">
+                                            <%= event.description %>
+                                        </p>
+                                        <p><strong>Date:</strong>
+                                            <%= event.date.toDateString() %>
+                                        </p>
+                                        <p><strong>Place:</strong>
+                                            <%= event.place %>
+                                        </p>
+                                        <p><strong>Bookings:</strong>
+                                            <%= event.bookingsCount %>
+                                        </p> <!-- Display booking count -->
+                                        <button class="btn btn-danger"
+                                            onclick="cancelBooking('<%= userId._id %>', '<%= event._id %>')">Cancel
+                                            Booking</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <% } else { %>
+                                <p>You have not posts booking any events yet.</p>
+                                <% } %>
+
+                            <% }) %>
+                               
+                </div>
+            </main>
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+
+    <script>
+        function cancelBooking(userId, eventId) {
+            const isConfirmed = confirm("Are you sure you want to cancel this booking?");
+            if (isConfirmed) {
+                console.log('Cancel confirmed for event:', eventId, 'by user:', userId); // Log event and user ID
+
+                fetch(`/auth/bookings/${userId}/${eventId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => {
+                        console.log('Response status:', response.status); // Log response status
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Response data:', data); // Log the response data
+                        if (data.success) {
+                            alert('Booking canceled successfully');
+                            window.location.reload(); // Refresh the page to show updated bookings
+                        } else {
+                            alert('Error canceling booking: ' + data.message);
+                        }
+                    })
+                    .catch(err => console.error('Error:', err)); // Log any errors
+            } else {
+                console.log('Booking cancellation was not confirmed.');
+            }
+        }
+    </script>
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+

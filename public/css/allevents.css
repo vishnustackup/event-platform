@@ -1,0 +1,54 @@
+body {
+  background-color: #f9f9f4 !important;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  padding-top: 100px;
+  /* Added padding to ensure the navbar doesn't overlap content */
+}
+
+.navbar {
+  background: linear-gradient(45deg, #f8c7d8, #f3c5e2, #f6c3e5) !important;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  font-family: "Poppins", sans-serif !important;
+}
+
+.navbar-nav .nav-link {
+  color: rgb(36, 35, 35) !important;
+  transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #e71010 !important;
+}
+
+.category-card {
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.category-card:hover {
+  transform: scale(1.05);
+}
+
+.category-card.active {
+  border-color: #007bff;
+}
+
+.category-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.form-check-input {
+  display: none;
+}
+
+.container-fluid img {
+  width: 70px;
+  height: 70px;
+}

@@ -1,0 +1,77 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Event Form</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+
+</head>
+
+<body>
+    <div class="background">
+        <div class="form-container">
+            <div class="form-image">
+                <img src="/img/pexels-christian-israel-palacios-resendiz-228508197-28598594.jpg" alt="Event Image">
+            </div>
+            <div class="form-content">
+                <form action="/editposts/<%= post._id %>" method="POST" enctype="multipart/form-data">
+                    <h2>Create Event</h2>
+
+                    <div class="form-group">
+                        <label for="image">Event Image</label>
+                        <input type="file" id="image" name="image"> 
+                    </div>
+
+                    <div class="form-group">
+                        <label for="title">Event Title</label>
+                        <input type="text" id="title" name="title" placeholder="Enter event title" value="<%= post.title %>" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Event Description</label>
+                        <textarea id="description" name="description" rows="4" placeholder="Enter event description"
+                            required><%= post.description %></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="place">Event Place</label>
+                        <input type="text" id="place" name="place" placeholder="Enter event place"value="<%= post.place %>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Ticket Price</label>
+                        <input type="number" id="price" name="price" placeholder="Enter the price" value="<%= post.price %>"required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category">Event Category:</label>
+                        <select id="category" name="category" class="form-control" required>
+                            <option value="" disabled>Select a category</option>
+                            <option value="Corporate" <%= post.category === 'Corporate' ? 'selected' : '' %>>Corporate</option>
+                            <option value="Virtual" <%= post.category === 'Virtual' ? 'selected' : '' %>>Virtual</option>
+                            <option value="Social" <%= post.category === 'Social' ? 'selected' : '' %>>Social</option>
+                            <option value="Entertainment" <%= post.category === 'Entertainment' ? 'selected' : '' %>>Entertainment</option>
+                            <option value="Sports" <%= post.category === 'Sports' ? 'selected' : '' %>>Sports</option>
+                            <option value="Education" <%= post.category === 'Education' ? 'selected' : '' %>>Education</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date">Event Date</label>
+                        <input type="date" id="date" name="date" value="<%= post.date.toISOString().split('T')[0] %>" required>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

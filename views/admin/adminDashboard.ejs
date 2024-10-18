@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-3 sidebar">
+                <h2>Admin Dashboard</h2>
+                <a href="#profile">My Profile</a>
+
+                <a href="/admin/adminposts/<%= admin._id %>" class="active">My Posts</a>
+
+                <a href="/admin/adminUsers" class="active">Users</a>
+                <a href="/admin/adminEvents" class="active">Events</a>
+                <a href="/admin/adminhome">Home</a>
+
+            </nav>
+
+            <!-- Main content area -->
+            <main class="col-md-9 content">
+                <h6>My Profile</h6>
+                <div class="card" style="width: 18rem;">
+
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <%= admin.name %>
+                        </h5>
+                        <p class="card-text">
+                            <%= admin.email %>
+                        </p>
+                        <p class="card-text">
+                            <%= admin.phoneno %>
+                        </p>
+
+                        <p class="card-text">
+                            <%= admin.state %>
+                        </p>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

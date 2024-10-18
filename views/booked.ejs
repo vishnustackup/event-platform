@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Dashboard-booked</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-3 sidebar">
+                <h2>Dashboard</h2>
+                <a href="/auth/userDashboard">My Profile</a>
+                <a href="/book-event/<%= user._id %>">Bookings</a>
+                <a href="/auth/myposts/<%= user._id %>" class="active">My Posts</a>
+                <a href="/book-event/<%= user._id %>" class="active">Booked Event</a>
+
+                <a href="/home">Home</a>
+
+            </nav>
+
+            <!-- Main content area -->
+                 
+                    <main class=" content">
+                        <h2>Booked Events</h2>
+        
+                        <div class="row" >
+                            <% bookedEvents.forEach(post=> { %>
+                                <div class="col-4 ">
+                                <div class="card" style="width: 20rem;">
+                                    <img class="card-img-top" src="<%= post.image %>" alt="Card image cap">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <%= post.title %>
+                                        </h5>
+                                        <p class="card-text">
+                                            <%= post.description %>
+                                        </p>
+                                        <p class="card-text">
+                                            <%= post.place %>
+                                        </p>
+                                        <p class="card-text">
+                                            <%= post.date.toDateString() %>
+                                        </p>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                                <% }) %>
+        
+                        </div>
+                    </main>
+            
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

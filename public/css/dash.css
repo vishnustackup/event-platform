@@ -1,0 +1,48 @@
+/* Custom styles */
+body {
+  background-color: #f0f2f5; 
+}
+.sidebar {
+  height: 100vh; 
+  background-color: #f6c3e5; 
+  padding: 20px;
+  color: rgb(0, 0, 0);
+}
+.sidebar h2 {
+  color: rgb(0, 0, 0);
+}
+.sidebar a {
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  display: block;
+  padding: 10px; 
+  border-radius: 4px;
+  margin-bottom: 5px; 
+  transition: background-color 0.3s; 
+  font-weight: 500;
+}
+.sidebar a:hover {
+  background-color: #f99bd9; 
+}
+.content {
+  padding: 20px; 
+  background-color: #f0f2f5 ;
+  border-radius: 8px; 
+ 
+}
+.card {
+  border: none; 
+  border-radius: 8px; 
+  margin-bottom: 20px; 
+}
+.card-header {
+  background-color: #007bff; /* Primary color */
+  color: white; /* White text */
+  border-radius: 8px 8px 0 0; /* Rounded top corners */
+}
+.card-title {
+  font-weight: bold; /* Bold title */
+}
+.content h6{
+  font-size: 50px;
+}

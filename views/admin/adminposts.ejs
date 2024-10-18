@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+
+   
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-3 sidebar">
+                <h2>Admin Dashboard</h2>
+                <a href="/admin/adminDashboard">My Profile</a>
+               
+                <a href="#" class="active">My Posts</a>
+               
+                <a href="/admin/adminUsers" class="active">Users</a>
+                <a href="/admin/adminEvents" class="active">Events</a>
+                <a href="/admin/adminhome">Home</a>
+            </nav>
+
+            <!-- Main content area -->
+            <main class="content col-md-9">
+                <h2>Welcome!</h2>
+
+                <div class="row">
+                    <% posts.forEach(post=> { %>
+                        <div class="col-4">
+                            <div class="card" style="width: 18rem;">
+                                <img class="card-img-top" src="<%= post.image %>" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <%= post.title %>
+                                    </h5>
+                                    <p class="card-text">
+                                        <%= post.description %>
+                                    </p>
+                                    <p class="card-text">
+                                        <%= post.place %>
+                                    </p>
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <a href="/editposts/<%= post._id %>" class="btn btn-success">Edit</a>
+                                        <form action="/deleteposts/<%= post._id %>" method="POST"
+                                            style="display:inline;">
+                                            <button type="submit" class="btn btn-danger"
+                                                onclick="return confirm('Are you sure you want to delete this post?');">Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <% }) %>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

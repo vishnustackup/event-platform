@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <%- include('../partials/header') %>
+    <title>Events</title>
+    <link rel="stylesheet" href="/css/events.css">
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg  border-body" data-bs-theme="dark">
+        <div class="container-fluid">
+            <img src="/img/EVENTORA-removebg-preview.png" alt="" srcset="">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown"
+                style="display: flex; justify-content: end; gap: 30px;">
+                <ul class="navbar-nav ">
+
+                    <!-- Conditionally render Login and Signup if user is not logged in -->
+                    <% if (!admin) { %>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/auth/login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/auth/signup">Signup</a>
+                        </li>
+
+                        <!-- Render Home, Add Event, and Categories if user is logged in -->
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/events/create">ADD EVENT</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/events/category">Categories</a>
+                        </li>
+
+                        <!-- Dropdown for Profile and Logout -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Your Profile
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/auth/userDashboard">Dashboard</a></li>
+                                <li><a class="dropdown-item" href="/auth/logout">LOG OUT</a></li>
+                            </ul>
+                        </li>
+                        <% } else { %>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/events/create">ADD EVENT</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/events/category">Categories</a>
+                            </li>
+
+                            <!-- Dropdown for Profile and Logout -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    Hi <%= admin.name %> !
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/admin/adminDashboard">Dashboard</a></li>
+                                    <li><a class="dropdown-item" href="/auth/logout">LOG OUT</a></li>
+                                </ul>
+                            </li>
+                            <% } %>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <div class="hero-section">
+
+        <!-- Small Circles in Background -->
+        <div class="circle small circle-1"></div>
+        <div class="circle small circle-1"></div>
+        <div class="circle medium circle-2"></div>
+        <div class="circle small circle-3"></div>
+        <div class="circle large circle-4"></div>
+        <div class="circle large circle-5"></div>
+
+
+        <div class="hero-content">
+            <h1>Make Every Moment Unforgettable</h1>
+            <p>We Make Everything Simple For You</p>
+            <a href="#container" class="btn btn-primary">Get Started</a>
+        </div>
+        <div class="hero-image">
+            <img src="/img/festive-calendar-event-holiday-celebration-party-work-schedule-planning-project-management-deadline-idea-office-managers-excited-colleagues.png"
+                alt="Hero Image">
+        </div>
+    </div>
+
+
+    <div class="custom-section">
+        <div class="text-section">
+            <h2>Everything In One Place</h2>
+            <p>your ultimate destination for all things events. Whether it's a wedding,
+                corporate event, or party, our platform simplifies planning and execution, ensuring every detail is just
+                right.</p>
+            <p> Connect with top venues, vendors, and resources to create
+                unforgettable events tailored to your unique style and vision
+            </p>
+
+        </div>
+        <div class="image-section">
+            <img src="/img/6224602.jpg" alt="Description of Image" class="custom-image">
+        </div>
+    </div>
+
+
+
+    <% if (locals.error) { %>
+        <div class="alert alert-danger" role="alert">
+            <%= locals.error %>
+        </div>
+        <% } %>
+
+
+
+
+
+            <div class="container">
+                <h1 class="mb-5">Upcoming Events</h1>
+                <div class="event-grid">
+                    <% events.forEach((event, index)=> { %>
+                        <div class="event-card">
+                            <img src="<%= event.image %>" alt="<%= event.title %>">
+                            <div class="card-details">
+                                <h2>
+                                    <%= event.title %>
+                                </h2>
+
+                                <p><strong>Location:</strong>
+                                    <%= event.place %>
+                                </p>
+                                <p><strong>Date:</strong>
+                                    <%= event.date.toDateString() %>
+                                </p>
+
+                                <!-- View Details Button to trigger the modal -->
+                                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                    data-bs-target="#eventModal<%= index %>">
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Modal for event details -->
+                        <div class="modal fade" id="eventModal<%= index %>" tabindex="-1"
+                            aria-labelledby="eventModalLabel<%= index %>" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="eventModalLabel<%= index %>">
+                                            <%= event.title %>
+                                        </h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <img src="<%= event.image %>" alt="<%= event.title %>" class="img-fluid">
+                                        <p>
+                                            <%= event.description %>
+                                        </p>
+                                        <p><strong>Location:</strong>
+                                            <%= event.place %>
+                                        </p>
+                                        <p><strong>Date:</strong>
+                                            <%= event.date.toDateString() %>
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <!-- Book Event Button -->
+                                        <a href="/events/category" class="btn btn-primary">View Category</a>
+
+                                        <!-- Go Back Button -->
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Go
+                                            Back</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <% }); %>
+
+                </div>
+            </div>
+
+            <div class="container section-3 mt-5 mb-5">
+                <div class="d-flex flex-row align-items-center">
+                    <!-- Left side: Image -->
+                    <div class="image-container" style="flex: 1;">
+                        <img src="/img/pexels-cottonbro-4835447.jpg" class="img-fluid" alt="Event Image"
+                            style="max-width:500px;">
+                    </div>
+
+                    <!-- Right side: Text -->
+                    <div class="text-container" style="flex: 1; padding-left: 20px;">
+                        <h2> Community Fun Day</h2>
+                        <p>Join us for a day of fun, laughter, and community bonding! The Community Fun Day will feature exciting activities, games, and delicious food for everyone. Bring your family and friends,
+                             and enjoy live music, art displays, and workshops designed to inspire creativity and connection. .</p>
+                        <p><strong>Let’s come together and celebrate our vibrant community!</strong> </p>
+                        
+                    </div>
+                </div>
+            </div>
+
+
+
+          <%- include('../partials/footer') %>
+         
+
+          
+            <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
